@@ -4,15 +4,17 @@ using APIColdonet.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 
 namespace APIColdonet.Migrations
 {
     [DbContext(typeof(ColdonetDBContext))]
-    partial class ColdonetDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201224191301_updatePassword")]
+    partial class updatePassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -443,9 +445,9 @@ namespace APIColdonet.Migrations
 
                     b.Property<string>("Contraseña")
                         .IsRequired()
-                        .HasMaxLength(500)
+                        .HasMaxLength(1)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("varchar(1)");
 
                     b.Property<string>("Email")
                         .IsRequired()

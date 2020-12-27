@@ -15,7 +15,7 @@ namespace APIColdonet.Entities
         }
 
         public int Id { get; set; }
-        public Geometry Ubicacion { get; set; }
+        public Point Ubicacion { get; set; }
         public string Calle { get; set; }
         public string Ciudad { get; set; }
         public string Sector { get; set; }

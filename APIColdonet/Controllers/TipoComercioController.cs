@@ -24,8 +24,8 @@ namespace APIColdonet.Controllers {
 
         //Metodo Get(id)
         [HttpGet("{id:int}", Name = "obtenerTipoComercio")]
-        public async Task<ActionResult<TipoComercio>> Get(int id) {
-            return await Get<TipoComercio, TipoComercio>(id);
+        public async Task<ActionResult<TipoComercioDTO>> Get(int id) {
+            return await Get<TipoComercio, TipoComercioDTO>(id);
         }
 
         //Metodo Post

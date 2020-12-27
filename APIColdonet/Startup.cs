@@ -45,10 +45,8 @@ namespace APIColdonet {
                 }).CreateMapper()
             );
 
-            services.AddDbContext<ColdonetDBContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            sqlServerOptions => sqlServerOptions.UseNetTopologySuite()
-            ));
+            services.AddDbContext<ColdonetDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
 
             //.AddNewtonSoftJson();
             services.AddControllers();

@@ -363,7 +363,7 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.Contraseña)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Email)
@@ -412,7 +412,7 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.Contraseña)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Email)
