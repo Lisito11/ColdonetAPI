@@ -1,6 +1,7 @@
 ﻿using APIColdonet.DTOs.Categorias;
 using APIColdonet.DTOs.Comercios;
 using APIColdonet.DTOs.Direcciones;
+using APIColdonet.DTOs.Productos;
 using APIColdonet.DTOs.SubCategorias;
 using APIColdonet.DTOs.SubUsuarios;
 using APIColdonet.DTOs.TipoComercios;
@@ -50,6 +51,10 @@ namespace APIColdonet.Helpers {
             //SubCategoria
             CreateMap<SubCategorium, SubCategoriaDTO>().ReverseMap();
             CreateMap<SubCategoriaCreacionDTO, SubCategorium>();
+
+            //Productos
+            CreateMap<Producto, ProductoDTO>().ReverseMap();
+            CreateMap<ProductoCreacionDTO, Producto>();
         }
     }
 }
