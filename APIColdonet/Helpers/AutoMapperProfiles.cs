@@ -1,9 +1,13 @@
 ﻿using APIColdonet.DTOs.Categorias;
 using APIColdonet.DTOs.Clientes;
 using APIColdonet.DTOs.Comercios;
+using APIColdonet.DTOs.Compras;
+using APIColdonet.DTOs.DetalleCompras;
 using APIColdonet.DTOs.DetalleVentas;
+using APIColdonet.DTOs.DeudaCliente;
 using APIColdonet.DTOs.Direcciones;
 using APIColdonet.DTOs.Productos;
+using APIColdonet.DTOs.Proveedores;
 using APIColdonet.DTOs.SubCategorias;
 using APIColdonet.DTOs.SubUsuarios;
 using APIColdonet.DTOs.TipoComercios;
@@ -70,6 +74,23 @@ namespace APIColdonet.Helpers {
             //DetalleVentas
             CreateMap<DetalleVentum, DetalleVentaDTO>().ReverseMap();
             CreateMap<DetalleVentaCreacionDTO, DetalleVentum>();
+
+            //DeudaClientes
+            CreateMap<DeudaCliente, DeudaClienteDTO>().ReverseMap();
+            CreateMap<DeudaClienteCreacionDTO, DeudaCliente>();
+
+            //Proveedores
+            CreateMap<Proveedor, ProveedorDTO>().ReverseMap();
+            CreateMap<ProveedorCreacionDTO, Proveedor>();
+
+            //Compras
+            CreateMap<Compra, CompraDTO>().ReverseMap();
+            CreateMap<CompraCreacionDTO, Compra>();
+
+            //DetalleCompras
+            CreateMap<DetalleCompra, DetalleCompraDTO>().ReverseMap();
+            CreateMap<DetalleCompraCreacionDTO, DetalleCompra>();
+
         }
     }
 }
