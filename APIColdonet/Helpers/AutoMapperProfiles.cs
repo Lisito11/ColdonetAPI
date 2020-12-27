@@ -1,10 +1,13 @@
 ﻿using APIColdonet.DTOs.Categorias;
+using APIColdonet.DTOs.Clientes;
 using APIColdonet.DTOs.Comercios;
+using APIColdonet.DTOs.DetalleVentas;
 using APIColdonet.DTOs.Direcciones;
 using APIColdonet.DTOs.Productos;
 using APIColdonet.DTOs.SubCategorias;
 using APIColdonet.DTOs.SubUsuarios;
 using APIColdonet.DTOs.TipoComercios;
+using APIColdonet.DTOs.Ventas;
 using APIColdonet.Entities;
 using AutoMapper;
 using NetTopologySuite.Geometries;
@@ -55,6 +58,18 @@ namespace APIColdonet.Helpers {
             //Productos
             CreateMap<Producto, ProductoDTO>().ReverseMap();
             CreateMap<ProductoCreacionDTO, Producto>();
+
+            //Clientes
+            CreateMap<Cliente, ClienteDTO>().ReverseMap();
+            CreateMap<ClienteCreacionDTO, Cliente>();
+
+            //Ventas
+            CreateMap<Ventum, VentaDTO>().ReverseMap();
+            CreateMap<VentaCreacionDTO, Ventum>();
+
+            //DetalleVentas
+            CreateMap<DetalleVentum, DetalleVentaDTO>().ReverseMap();
+            CreateMap<DetalleVentaCreacionDTO, DetalleVentum>();
         }
     }
 }
