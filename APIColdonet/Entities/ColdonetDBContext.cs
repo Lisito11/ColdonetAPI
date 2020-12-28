@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace APIColdonet.Entities
 {
-    public partial class ColdonetDBContext : DbContext  
+    public partial class ColdonetDBContext : IdentityDbContext  
     {
         public ColdonetDBContext()
         {
@@ -16,6 +19,8 @@ namespace APIColdonet.Entities
             : base(options)
         {
         }
+
+
 
         public virtual DbSet<Categorium> Categoria { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
@@ -31,6 +36,8 @@ namespace APIColdonet.Entities
         public virtual DbSet<TipoComercio> TipoComercios { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Ventum> Venta { get; set; }
+
+
        // public virtual DbSet<CompraProveedores> CompraProveedores { get; set; }
 
 
@@ -68,14 +75,13 @@ namespace APIColdonet.Entities
                     .HasConstraintName("fk_categoria_usuario");
             });
 
-        /*    modelBuilder.Entity<CompraProveedores>(entity => {
-
-                entity.HasNoKey();
-                entity.HasForeignKey(d => d.ProveedorId);
-
-
-
-
+           /* modelBuilder.Entity<IdentityUser>(entity => 
+            {
+                entity.HasKey(e => e.Id).HasName("PK_Usuario");
+            });
+            modelBuilder.Entity<IdentityUserLogin<int>>(entity => {
+                entity.HasKey(e => e.UserId).HasName("PK_UsuarioLogin");
+                entity.ToTable("AspNetUserLogins");
             });*/
 
             modelBuilder.Entity<Cliente>(entity =>
@@ -233,7 +239,7 @@ namespace APIColdonet.Entities
                     .HasConstraintName("fk_deudacliente_usuario");
             });
 
-            modelBuilder.Entity<Direccion>(entity =>
+           modelBuilder.Entity<Direccion>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("IdDireccion");
 
@@ -471,10 +477,49 @@ namespace APIColdonet.Entities
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_venta_usuario");
             });
+            SeedData(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
-            OnModelCreatingPartial(modelBuilder);
+           // OnModelCreatingPartial(modelBuilder);
         }
+        private void SeedData(ModelBuilder modelBuilder) {
+            var rolAdminId = "9aae0b6d-d50c-4d0a-9b90-2a6873e3845d";
+            var usuarioAdminId = "5673b8cf-12de-44f6-92ad-fae4a77932ad";
 
+            var rolAdmin = new IdentityRole() {
+                Id = rolAdminId,
+                Name = "Admin",
+                NormalizedName = "Admin"
+            };
+
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+
+            var username = "l.andrespg11@gmail.com";
+
+            var usuarioAdmin = new IdentityUser() {
+                Id = usuarioAdminId,
+                UserName = username,
+                NormalizedUserName = username,
+                Email = username,
+                NormalizedEmail = username,
+                PasswordHash = passwordHasher.HashPassword(null, "Andres.Lisito01!")
+            };
+            
+          /*  modelBuilder.Entity<IdentityUser>()
+                .HasData(usuarioAdmin);
+
+            modelBuilder.Entity<IdentityRole>()
+                .HasData(rolAdmin);
+
+            modelBuilder.Entity<IdentityUserClaim<string>>()
+               .HasData(new IdentityUserClaim<string>()
+               {
+                   Id = 1,
+                   ClaimType = ClaimTypes.Role,
+                   UserId = usuarioAdminId,
+                    ClaimValue = "Admin"
+                });*/
+        }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

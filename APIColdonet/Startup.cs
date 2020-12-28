@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
 
 namespace APIColdonet {
     public class Startup {
@@ -42,7 +47,20 @@ namespace APIColdonet {
             sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
             
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
+            services.AddIdentity<IdentityUser, IdentityRole>()
+              .AddEntityFrameworkStores<ColdonetDBContext>()
+              .AddDefaultTokenProviders();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+                   options.TokenValidationParameters = new TokenValidationParameters {
+                       ValidateIssuer = false,
+                       ValidateAudience = false,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["jwt:key"])),ClockSkew = TimeSpan.Zero }
+                   );
 
         }
 
@@ -54,6 +72,8 @@ namespace APIColdonet {
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

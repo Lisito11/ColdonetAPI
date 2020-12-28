@@ -11,9 +11,11 @@ using APIColdonet.DTOs.Proveedores;
 using APIColdonet.DTOs.SubCategorias;
 using APIColdonet.DTOs.SubUsuarios;
 using APIColdonet.DTOs.TipoComercios;
+using APIColdonet.DTOs.UsuariosAPI;
 using APIColdonet.DTOs.Ventas;
 using APIColdonet.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using NetTopologySuite.Geometries;
 using System.Collections.Generic;
 
@@ -21,6 +23,7 @@ namespace APIColdonet.Helpers {
     public class AutoMapperProfiles : Profile {
         public AutoMapperProfiles(GeometryFactory geometryFactory) {
 
+            CreateMap<IdentityUser, UsuarioDTO>();
 
             //Comercio
             CreateMap<Usuario, ComercioDTO>().ReverseMap();

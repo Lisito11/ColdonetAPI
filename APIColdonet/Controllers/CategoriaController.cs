@@ -2,6 +2,8 @@
 using APIColdonet.DTOs.Categorias;
 using APIColdonet.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 namespace APIColdonet.Controllers {
     [ApiController]
     [Route("api/categorias")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoriaController:CustomBaseController {
         public CategoriaController(ColdonetDBContext context, IMapper mapper) : base(context, mapper) {
         }
