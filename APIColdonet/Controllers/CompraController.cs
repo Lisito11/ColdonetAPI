@@ -2,6 +2,8 @@
 using APIColdonet.DTOs.Compras;
 using APIColdonet.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,8 @@ using System.Threading.Tasks;
 namespace APIColdonet.Controllers {
     [ApiController]
     [Route("api/compras")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class CompraController:CustomBaseController {
         public CompraController(ColdonetDBContext context, IMapper mapper) : base(context, mapper) {
         }

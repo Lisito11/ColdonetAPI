@@ -2,15 +2,20 @@
 using APIColdonet.DTOs.Proveedores;
 using APIColdonet.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace APIColdonet.Controllers {
     [ApiController]
     [Route("api/proveedores")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class ProveedorController:CustomBaseController {
         public ProveedorController(ColdonetDBContext context, IMapper mapper) : base(context, mapper) {
         }

@@ -2,6 +2,8 @@
 using APIColdonet.DTOs.DetalleVentas;
 using APIColdonet.Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,8 @@ using System.Threading.Tasks;
 namespace APIColdonet.Controllers {
     [ApiController]
     [Route("api/detalleventas")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class DetalleVentaController:CustomBaseController {
         public DetalleVentaController(ColdonetDBContext context, IMapper mapper) : base(context, mapper) {
         }

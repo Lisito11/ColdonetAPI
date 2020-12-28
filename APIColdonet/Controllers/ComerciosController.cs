@@ -4,17 +4,20 @@ using APIColdonet.Entities;
 using APIColdonet.Helpers;
 using APIColdonet.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace APIColdonet.Controllers {
     [ApiController]
     [Route("api/comercios")]
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ComerciosController : CustomBaseController {
         private readonly ColdonetDBContext context;
         private readonly IMapper mapper;

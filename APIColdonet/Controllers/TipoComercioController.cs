@@ -3,6 +3,8 @@ using APIColdonet.DTOs.TipoComercios;
 using APIColdonet.Entities;
 using APIColdonet.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,8 @@ using System.Threading.Tasks;
 namespace APIColdonet.Controllers {
     [ApiController]
     [Route("api/tipocomercios")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class TipoComercioController: CustomBaseController {
         public TipoComercioController(ColdonetDBContext context, IMapper mapper) : base(context, mapper) {
         }
