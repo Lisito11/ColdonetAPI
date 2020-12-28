@@ -22,6 +22,7 @@ namespace APIColdonet.Entities
         public int? IdUsuario { get; set; }
 
         public virtual Proveedor IdProveedorNavigation { get; set; }
+  //      public List<CompraProveedores> CompraProveedores { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }
         public virtual ICollection<DetalleCompra> DetalleCompras { get; set; }
     }

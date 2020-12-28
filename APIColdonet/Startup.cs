@@ -4,19 +4,12 @@ using APIColdonet.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace APIColdonet {
     public class Startup {
@@ -46,10 +39,9 @@ namespace APIColdonet {
             );
 
             services.AddDbContext<ColdonetDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
-
-            //.AddNewtonSoftJson();
-            services.AddControllers();
+            sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
+            
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 
         }

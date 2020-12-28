@@ -31,6 +31,7 @@ namespace APIColdonet.Entities
         public virtual DbSet<TipoComercio> TipoComercios { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Ventum> Venta { get; set; }
+       // public virtual DbSet<CompraProveedores> CompraProveedores { get; set; }
 
 
         /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
@@ -66,6 +67,16 @@ namespace APIColdonet.Entities
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_categoria_usuario");
             });
+
+        /*    modelBuilder.Entity<CompraProveedores>(entity => {
+
+                entity.HasNoKey();
+                entity.HasForeignKey(d => d.ProveedorId);
+
+
+
+
+            });*/
 
             modelBuilder.Entity<Cliente>(entity =>
             {

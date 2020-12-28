@@ -25,16 +25,20 @@ namespace APIColdonet.Controllers {
 
         //Metodo get para listar entidades
         protected async Task<List<TDTO>> Get<TEntidad, TDTO>() where TEntidad : class {
+
+
             var entidades = await context.Set<TEntidad>().AsNoTracking().ToListAsync();
             var dtos = mapper.Map<List<TDTO>>(entidades);
             return dtos;
         }
+
         //Metodo get para listar entidades con paginacion
         protected async Task<List<TDTO>> Get<TEntidad, TDTO>(PaginacionDTO paginacionDTO)
             where TEntidad : class {
             var queryable = context.Set<TEntidad>().AsQueryable();
             return await Get<TEntidad, TDTO>(paginacionDTO, queryable);
         }
+
         //Metodo auxiliar get para listar entidades con paginacion
         protected async Task<List<TDTO>> Get<TEntidad, TDTO>(PaginacionDTO paginacionDTO,
             IQueryable<TEntidad> queryable)

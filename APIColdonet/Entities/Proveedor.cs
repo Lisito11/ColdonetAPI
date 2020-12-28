@@ -17,6 +17,7 @@ namespace APIColdonet.Entities
         public string TelefonoProveedor { get; set; }
         public int? IdDireccion { get; set; }
         public int? IdUsuario { get; set; }
+     //   public List<CompraProveedores> CompraProveedores { get; set; }
 
         public virtual Direccion IdDireccionNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }

@@ -15,10 +15,7 @@ using APIColdonet.DTOs.Ventas;
 using APIColdonet.Entities;
 using AutoMapper;
 using NetTopologySuite.Geometries;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace APIColdonet.Helpers {
     public class AutoMapperProfiles : Profile {
@@ -28,7 +25,18 @@ namespace APIColdonet.Helpers {
             //Comercio
             CreateMap<Usuario, ComercioDTO>().ReverseMap();
             CreateMap<ComercioCreacionDTO, Usuario>();
-             
+
+
+            CreateMap<Usuario, ComercioDetallesDTO>().ReverseMap();
+              //  .ForMember(x => x.Categorias, options => options.MapFrom(MapperComercios.MapUsuariosCategorias));
+               /* .ForMember(x => x.Clientes, options => options.MapFrom(MapUsuariosClientes))
+                .ForMember(x => x.Compras, options => options.MapFrom(MapUsuariosCompras))
+                .ForMember(x => x.Productos, options => options.MapFrom(MapUsuariosProductos))
+                .ForMember(x => x.Proveedors, options => options.MapFrom(MapUsuariosProveedors))
+                .ForMember(x => x.SubCategoria, options => options.MapFrom(MapUsuariosSubCategoria))
+                .ForMember(x => x.SubUsuarios, options => options.MapFrom(MapUsuariosSubUsuarios))
+                .ForMember(x => x.Venta, options => options.MapFrom(MapUsuariosVenta));*/
+
             //Tipo de comercio
             CreateMap<TipoComercio, TipoComercioDTO>().ReverseMap();
             CreateMap<TipoComercioCreacionDTO, TipoComercio>();
@@ -83,14 +91,31 @@ namespace APIColdonet.Helpers {
             CreateMap<Proveedor, ProveedorDTO>().ReverseMap();
             CreateMap<ProveedorCreacionDTO, Proveedor>();
 
+
+
+
+
+
             //Compras
             CreateMap<Compra, CompraDTO>().ReverseMap();
-            CreateMap<CompraCreacionDTO, Compra>();
+            CreateMap<CompraCreacionDTO, Compra>(); //.ForMember(x => x.CompraProveedores, options => options.MapFrom(MapCompraProveedores));
 
             //DetalleCompras
             CreateMap<DetalleCompra, DetalleCompraDTO>().ReverseMap();
             CreateMap<DetalleCompraCreacionDTO, DetalleCompra>();
 
         }
+      /*  private List<CompraProveedores> MapCompraProveedores(CompraCreacionDTO compraCreacionDTO, Compra compra) {
+
+            var resultado = new List<CompraProveedores>();
+
+            if (compraCreacionDTO.ProveedoresID == null) { return resultado; }
+
+            foreach (var id in compraCreacionDTO.ProveedoresID) {
+                resultado.Add(new CompraProveedores() { ProveedorId = id });
+            }
+
+            return resultado;*/
+        }
     }
-}
+
