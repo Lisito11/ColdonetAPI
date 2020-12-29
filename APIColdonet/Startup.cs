@@ -33,7 +33,6 @@ namespace APIColdonet {
 
             services.AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
 
-            //services.AddScoped<PeliculaExisteAttribute>();
 
             services.AddSingleton(provider =>
 
@@ -61,6 +60,7 @@ namespace APIColdonet {
                        ValidateIssuerSigningKey = true,
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["jwt:key"])),ClockSkew = TimeSpan.Zero }
                    );
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
         }
 

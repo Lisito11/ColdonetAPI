@@ -2,193 +2,43 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using NetTopologySuite.Geometries;
 
-namespace APIColdonet.Migrations
-{
-    public partial class InitialDbChange : Migration
-    {
+namespace APIColdonet.Migrations {
+    public partial class InitialAzure : Migration {
         protected override void Up(MigrationBuilder migrationBuilder) {
-
-           migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table => {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table => {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-        
-        
             migrationBuilder.CreateTable(
                 name: "Direccion",
-                columns: table => new
-                {
+                columns: table => new {
                     IdDireccion = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ubicacion = table.Column<Point>(type: "geography", nullable: true),
+                    Ubicacion = table.Column<Geometry>(type: "geography", nullable: true),
                     Calle = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
                     Ciudad = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
                     Sector = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Direccio__1F8E0C761AC67455", x => x.IdDireccion);
                 });
 
             migrationBuilder.CreateTable(
                 name: "TipoComercio",
-                columns: table => new
-                {
+                columns: table => new {
                     IdTipoComercio = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
                     Descripcion = table.Column<string>(type: "text", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__TipoCome__6D8B1B6EF81A8DB1", x => x.IdTipoComercio);
                 });
 
-          migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-               });
-        
             migrationBuilder.CreateTable(
                 name: "Usuario",
-                columns: table => new
-                {
+                columns: table => new {
                     IdUsuario = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
                     Email = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
-                    Contraseña = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: false),
+                    Contraseña = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 1, nullable: false),
                     Telefono = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: true),
                     FechaIngreso = table.Column<DateTime>(type: "date", nullable: true),
                     Delivery = table.Column<int>(type: "int", nullable: true),
@@ -196,8 +46,7 @@ namespace APIColdonet.Migrations
                     IdTipoComercio = table.Column<int>(type: "int", nullable: true),
                     IdDireccion = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Usuario__5B65BF97130DF27C", x => x.IdUsuario);
                     table.ForeignKey(
                         name: "fk_usuario_direccion",
@@ -215,8 +64,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Categoria",
-                columns: table => new
-                {
+                columns: table => new {
                     IdCategoria = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodigoCategoria = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: true),
@@ -224,8 +72,7 @@ namespace APIColdonet.Migrations
                     DescripcionCategoria = table.Column<string>(type: "text", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Categori__A3C02A1045E3740B", x => x.IdCategoria);
                     table.ForeignKey(
                         name: "fk_categoria_usuario",
@@ -237,8 +84,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Cliente",
-                columns: table => new
-                {
+                columns: table => new {
                     IdCliente = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
@@ -247,8 +93,7 @@ namespace APIColdonet.Migrations
                     Estatus = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Cliente__D59466429DAF6FDD", x => x.IdCliente);
                     table.ForeignKey(
                         name: "fk_cliente_usuario",
@@ -260,8 +105,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Proveedor",
-                columns: table => new
-                {
+                columns: table => new {
                     IdProveedor = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreProveedor = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
@@ -269,8 +113,7 @@ namespace APIColdonet.Migrations
                     IdDireccion = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Proveedo__E8B631AF2197D2E2", x => x.IdProveedor);
                     table.ForeignKey(
                         name: "fk_proveedor_direccion",
@@ -288,8 +131,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "SubUsuario",
-                columns: table => new
-                {
+                columns: table => new {
                     IdSubUsuario = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: false),
@@ -297,13 +139,12 @@ namespace APIColdonet.Migrations
                     Apellido2 = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
                     Celular = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: true),
                     Email = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: false),
-                    Contraseña = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: false),
+                    Contraseña = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 1, nullable: false),
                     FechaIngreso = table.Column<DateTime>(type: "date", nullable: true),
                     EstatusSubUsuario = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__SubUsuar__268A5A4499303A5F", x => x.IdSubUsuario);
                     table.ForeignKey(
                         name: "fk_subusuario_usuario",
@@ -315,8 +156,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Venta",
-                columns: table => new
-                {
+                columns: table => new {
                     IdVenta = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalVenta = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
@@ -325,8 +165,7 @@ namespace APIColdonet.Migrations
                     EstatusVenta = table.Column<int>(type: "int", nullable: false),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Venta__BC1240BDB483FFE9", x => x.IdVenta);
                     table.ForeignKey(
                         name: "fk_venta_usuario",
@@ -338,8 +177,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "SubCategoria",
-                columns: table => new
-                {
+                columns: table => new {
                     IdSubCategoria = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodigoSubCategoria = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: true),
@@ -348,8 +186,7 @@ namespace APIColdonet.Migrations
                     IdCategoria = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__SubCateg__0A1EFFE50FCDCA62", x => x.IdSubCategoria);
                     table.ForeignKey(
                         name: "fk_subcategoria_categoria",
@@ -367,8 +204,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Compra",
-                columns: table => new
-                {
+                columns: table => new {
                     IdCompra = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreCompra = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: false),
@@ -379,8 +215,7 @@ namespace APIColdonet.Migrations
                     IdProveedor = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Compra__0A5CDB5C352E4AF5", x => x.IdCompra);
                     table.ForeignKey(
                         name: "fk_compra_proveedor",
@@ -398,8 +233,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Producto",
-                columns: table => new
-                {
+                columns: table => new {
                     IdProducto = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodigoProducto = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: true),
@@ -413,8 +247,7 @@ namespace APIColdonet.Migrations
                     IdSubCategoria = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__Producto__098892105010AF9D", x => x.IdProducto);
                     table.ForeignKey(
                         name: "fk_categoria_producto",
@@ -438,8 +271,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DetalleCompra",
-                columns: table => new
-                {
+                columns: table => new {
                     IdDetalleCompra = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CostoUnidad = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
@@ -448,8 +280,7 @@ namespace APIColdonet.Migrations
                     IdCompra = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__DetalleC__E046CCBB74185F11", x => x.IdDetalleCompra);
                     table.ForeignKey(
                         name: "fk_detallecompra_compra",
@@ -473,8 +304,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DetalleVenta",
-                columns: table => new
-                {
+                columns: table => new {
                     IdDetalleVenta = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EstatusDetalleVenta = table.Column<int>(type: "int", nullable: true),
@@ -487,8 +317,7 @@ namespace APIColdonet.Migrations
                     IdCliente = table.Column<int>(type: "int", nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__DetalleV__AAA5CEC284321B5D", x => x.IdDetalleVenta);
                     table.ForeignKey(
                         name: "fk_detalleventa_cliente",
@@ -518,8 +347,7 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DeudaCliente",
-                columns: table => new
-                {
+                columns: table => new {
                     IdDeudaCliente = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClienteDebe = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
@@ -529,8 +357,7 @@ namespace APIColdonet.Migrations
                     ProductoCliente = table.Column<string>(type: "varchar(150)", unicode: false, maxLength: 150, nullable: true),
                     IdUsuario = table.Column<int>(type: "int", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK__DeudaCli__51C9453FFDB3D8A8", x => x.IdDeudaCliente);
                     table.ForeignKey(
                         name: "fk_deudacliente_cliente",
@@ -551,45 +378,6 @@ namespace APIColdonet.Migrations
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "AspNetRoles",
-                column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categoria_IdUsuario",
@@ -717,23 +505,7 @@ namespace APIColdonet.Migrations
                 column: "IdUsuario");
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
-
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropTable(
                 name: "DetalleCompra");
 
@@ -742,12 +514,6 @@ namespace APIColdonet.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubUsuario");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Compra");

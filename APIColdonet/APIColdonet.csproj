@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>9b853c07-f04a-44b5-bbcf-8c4bb1caf23a</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/04eb9e0d-531d-463b-9fb2-a637309451e8/resourcegroups/ColdonetApi/providers/Microsoft.Insights/components/APIColdonet</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="5.0.1" />

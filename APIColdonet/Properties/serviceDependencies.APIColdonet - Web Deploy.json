@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "appInsights1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/APIColdonet",
+      "type": "appInsights.azure",
+      "connectionId": "APPINSIGHTS_CONNECTIONSTRING",
+      "secretStore": "AzureAppSettings"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "",
+      "suggestion": "true",
+      "ignored": "true"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/apicoldonetdbserver/databases/APIColdonet_db",
+      "type": "mssql.azure",
+      "connectionId": "DefaultConnectionAzure",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
