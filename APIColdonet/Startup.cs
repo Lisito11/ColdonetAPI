@@ -15,9 +15,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
+using Npgsql;
 
 namespace APIColdonet {
     public class Startup {
+        
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
@@ -25,7 +27,7 @@ namespace APIColdonet {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
-
+            
             services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
@@ -42,9 +44,10 @@ namespace APIColdonet {
                 }).CreateMapper()
             );
 
-            services.AddDbContext<ColdonetDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
-            
+            // services.Configure<Env>(Configuration.GetSection("Env"));
+          //services.AddDbContext<ColdonetDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dbconnection"), sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
+            services.AddDbContext<ColdonetDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Dbconnection"), npgsqlOptions => npgsqlOptions.UseNetTopologySuite()));
+
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             services.AddIdentity<IdentityUser, IdentityRole>()

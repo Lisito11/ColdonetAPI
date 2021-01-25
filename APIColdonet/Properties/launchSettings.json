@@ -13,9 +13,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "api/comercios",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      "sqlDebugging": false
     },
     "APIColdonet": {
       "commandName": "Project",
