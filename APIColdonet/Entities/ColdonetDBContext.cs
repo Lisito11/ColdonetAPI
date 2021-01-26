@@ -107,7 +107,7 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Clientes)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_cliente_usuario");
             });
 
@@ -136,12 +136,12 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdProveedorNavigation)
                     .WithMany(p => p.Compras)
-                    .HasForeignKey(d => d.IdProveedor)
+                    .HasForeignKey(d => d.IdProveedor.ToString().ToLower())
                     .HasConstraintName("fk_compra_proveedor");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Compras)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_compra_usuario");
             });
 
@@ -160,17 +160,17 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdCompraNavigation)
                     .WithMany(p => p.DetalleCompras)
-                    .HasForeignKey(d => d.IdCompra)
+                    .HasForeignKey(d => d.IdCompra.ToString().ToLower())
                     .HasConstraintName("fk_detallecompra_compra");
 
                 entity.HasOne(d => d.IdProductoNavigation)
                     .WithMany(p => p.DetalleCompras)
-                    .HasForeignKey(d => d.IdProducto)
+                    .HasForeignKey(d => d.IdProducto.ToString().ToLower())
                     .HasConstraintName("fk_detallecompra_producto");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DetalleCompras)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_detallecompra_usuario");
             });
 
@@ -199,22 +199,22 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdCliente)
+                    .HasForeignKey(d => d.IdCliente.ToString().ToLower())
                     .HasConstraintName("fk_detalleventa_cliente");
 
                 entity.HasOne(d => d.IdProductoNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdProducto)
+                    .HasForeignKey(d => d.IdProducto.ToString().ToLower())
                     .HasConstraintName("fk_detalleventa_producto");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_detalleventa_usuario");
 
                 entity.HasOne(d => d.IdVentaNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdVenta)
+                    .HasForeignKey(d => d.IdVenta.ToString().ToLower())
                     .HasConstraintName("fk_detalleventa_venta");
             });
 
@@ -238,17 +238,17 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdCliente)
+                    .HasForeignKey(d => d.IdCliente.ToString().ToLower())
                     .HasConstraintName("fk_deudacliente_cliente");
 
                 entity.HasOne(d => d.IdDetalleVentaNavigation)
                     .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdDetalleVenta)
+                    .HasForeignKey(d => d.IdDetalleVenta.ToString().ToLower())
                     .HasConstraintName("fk_deudacliente_detalleventa");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_deudacliente_usuario");
             });
 
@@ -304,17 +304,17 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdCategoriaNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdCategoria)
+                    .HasForeignKey(d => d.IdCategoria.ToString().ToLower())
                     .HasConstraintName("fk_categoria_producto");
 
                 entity.HasOne(d => d.IdSubCategoriaNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdSubCategoria)
+                    .HasForeignKey(d => d.IdSubCategoria.ToString().ToLower())
                     .HasConstraintName("fk_subcategoria_producto");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_producto_usuario");
             });
 
@@ -338,12 +338,12 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdDireccionNavigation)
                     .WithMany(p => p.Proveedors)
-                    .HasForeignKey(d => d.IdDireccion)
+                    .HasForeignKey(d => d.IdDireccion.ToString().ToLower())
                     .HasConstraintName("fk_proveedor_direccion");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Proveedors)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_proveedor_usuario");
             });
 
@@ -368,12 +368,12 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdCategoriaNavigation)
                     .WithMany(p => p.SubCategoria)
-                    .HasForeignKey(d => d.IdCategoria)
+                    .HasForeignKey(d => d.IdCategoria.ToString().ToLower())
                     .HasConstraintName("fk_subcategoria_categoria");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.SubCategoria)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_subcategoria_usuario");
             });
 
@@ -420,7 +420,7 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.SubUsuarios)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_subusuario_usuario");
             });
 
@@ -478,12 +478,12 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdDireccionNavigation)
                     .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.IdDireccion)
+                    .HasForeignKey(d => d.IdDireccion.ToString().ToLower())
                     .HasConstraintName("fk_usuario_direccion");
 
                 entity.HasOne(d => d.IdTipoComercioNavigation)
                     .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.IdTipoComercio)
+                    .HasForeignKey(d => d.IdTipoComercio.ToString().ToLower())
                     .HasConstraintName("fk_usuario_tipocomercio");
             });
 
@@ -507,7 +507,7 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Venta)
-                    .HasForeignKey(d => d.IdUsuario)
+                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
                     .HasConstraintName("fk_venta_usuario");
             });
             SeedData(modelBuilder);
