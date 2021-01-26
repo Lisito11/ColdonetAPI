@@ -86,21 +86,24 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<Cliente>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdCliente");
+                entity.Property(e => e.Id).HasColumnName("idcliente");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Cliente__D59466429DAF6FDD");
 
                 entity.ToTable("cliente");
 
-                entity.Property(e => e.Abono).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.Abono).HasColumnType("decimal(10, 2)").HasColumnName("abono");
 
-                entity.Property(e => e.DeudaTotal).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.DeudaTotal).HasColumnType("decimal(10, 2)").HasColumnName("deudatotal");
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Nombre).HasColumnName("nombre")
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Estatus).HasColumnName("estatus");
+
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Clientes)
@@ -110,23 +113,26 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<Compra>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdCompra");
+                entity.Property(e => e.Id).HasColumnName("idcompra");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Compra__0A5CDB5C352E4AF5");
 
                 entity.ToTable("compra");
 
-                entity.Property(e => e.FechaCompra).HasColumnType("date");
+                entity.Property(e => e.FechaCompra).HasColumnType("date").HasColumnName("fechacompra");
 
-                entity.Property(e => e.NombreCompra)
+                entity.Property(e => e.NombreCompra).HasColumnName("nombrecompra")
                     .IsRequired()
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PorPagar).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.PorPagar).HasColumnType("decimal(10, 2)").HasColumnName("porpagar");
 
-                entity.Property(e => e.TotalCompra).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.TotalCompra).HasColumnType("decimal(10, 2)").HasColumnName("totalcompra");
+
+                entity.Property(e => e.EstatusCompra).HasColumnName("estatuscompra");
+
 
                 entity.HasOne(d => d.IdProveedorNavigation)
                     .WithMany(p => p.Compras)
@@ -141,16 +147,16 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<DetalleCompra>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdDetalleCompra");
+                entity.Property(e => e.Id).HasColumnName("iddetallecompra");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__DetalleC__E046CCBB74185F11");
 
                 entity.ToTable("detallecompra");
 
-                entity.Property(e => e.CantidadProductoDc).HasColumnName("CantidadProductoDC");
+                entity.Property(e => e.CantidadProductoDc).HasColumnName("cantidadproductodc");
 
-                entity.Property(e => e.CostoUnidad).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.CostoUnidad).HasColumnType("decimal(10, 2)").HasColumnName("costounidad");
 
                 entity.HasOne(d => d.IdCompraNavigation)
                     .WithMany(p => p.DetalleCompras)
@@ -170,7 +176,7 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<DetalleVentum>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdDetalleVenta");
+                entity.Property(e => e.Id).HasColumnName("iddetalleventa");
 
                 entity.ToTable("detalleventa");
 
@@ -178,17 +184,18 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__DetalleV__AAA5CEC284321B5D");
 
-                entity.Property(e => e.CantidadProductoDv).HasColumnName("CantidadProductoDV");
+                entity.Property(e => e.CantidadProductoDv).HasColumnName("cantidadproductodv");
 
                 entity.Property(e => e.CostoProductoDv)
                     .HasColumnType("decimal(10, 2)")
-                    .HasColumnName("CostoProductoDV");
+                    .HasColumnName("costoproductodv");
 
-                entity.Property(e => e.FechaDetalleVenta).HasColumnType("datetime");
+                entity.Property(e => e.FechaDetalleVenta).HasColumnType("datetime").HasColumnName("fechadetalleventa");
+                entity.Property(e => e.EstatusDetalleVenta).HasColumnName("estatusdetalleventa");
 
                 entity.Property(e => e.PrecioProductoDv)
                     .HasColumnType("decimal(10, 2)")
-                    .HasColumnName("PrecioProductoDV");
+                    .HasColumnName("precioproductodv");
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.DetalleVenta)
@@ -213,18 +220,21 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<DeudaCliente>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdDeudaCliente");
+                entity.Property(e => e.Id).HasColumnName("iddeudacliente");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__DeudaCli__51C9453FFDB3D8A8");
 
                 entity.ToTable("deudacliente");
 
-                entity.Property(e => e.ClienteDebe).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.ClienteDebe).HasColumnType("decimal(10, 2)").HasColumnName("clientedebe");
 
-                entity.Property(e => e.ProductoCliente)
+                entity.Property(e => e.ProductoCliente).HasColumnName("productocliente")
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.Property(e => e.EstatusDeudaCliente).HasColumnName("estatusdeudacliente");
+
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.DeudaClientes)
@@ -244,47 +254,53 @@ namespace APIColdonet.Entities
 
            modelBuilder.Entity<Direccion>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdDireccion");
+                entity.Property(e => e.Id).HasColumnName("iddireccion");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Direccio__1F8E0C761AC67455");
 
                 entity.ToTable("direccion");
 
-                entity.Property(e => e.Calle)
+                entity.Property(e => e.Ubicacion).HasColumnName("ubicacion");
+
+
+                entity.Property(e => e.Calle).HasColumnName("calle")
                     .HasMaxLength(80)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Ciudad)
+                entity.Property(e => e.Ciudad).HasColumnName("ciudad")
                     .HasMaxLength(80)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Sector)
+                entity.Property(e => e.Sector).HasColumnName("sector")
                     .HasMaxLength(80)
                     .IsUnicode(false);
             });
 
             modelBuilder.Entity<Producto>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdProducto");
+                entity.Property(e => e.Id).HasColumnName("idproducto");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Producto__098892105010AF9D");
 
                 entity.ToTable("producto");
 
-                entity.Property(e => e.CodigoProducto)
+                entity.Property(e => e.CodigoProducto).HasColumnName("codigoproducto")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CostoProducto).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.CostoProducto).HasColumnType("decimal(10, 2)").HasColumnName("costoproducto");
 
-                entity.Property(e => e.NombreProducto)
+                entity.Property(e => e.NombreProducto).HasColumnName("nombreproducto")
                     .IsRequired()
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PrecioProdcuto).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.PrecioProdcuto).HasColumnType("decimal(10, 2)").HasColumnName("precioprodcuto");
+                entity.Property(e => e.EstatusProducto).HasColumnName("estatusproducto");
+                entity.Property(e => e.CantidadProducto).HasColumnName("cantidadproducto");
+                entity.Property(e => e.Pesado).HasColumnName("pesado");
 
                 entity.HasOne(d => d.IdCategoriaNavigation)
                     .WithMany(p => p.Productos)
@@ -304,19 +320,19 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<Proveedor>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdProveedor");
+                entity.Property(e => e.Id).HasColumnName("idproveedor");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Proveedo__E8B631AF2197D2E2");
 
                 entity.ToTable("proveedor");
 
-                entity.Property(e => e.NombreProveedor)
+                entity.Property(e => e.NombreProveedor).HasColumnName("nombreproveedor")
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TelefonoProveedor)
+                entity.Property(e => e.TelefonoProveedor).HasColumnName("telefonoproveedor")
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
@@ -333,19 +349,19 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<SubCategorium>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdSubCategoria");
+                entity.Property(e => e.Id).HasColumnName("idsubcategoria");
                 entity.ToTable("subcategoria");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__SubCateg__0A1EFFE50FCDCA62");
 
-                entity.Property(e => e.CodigoSubCategoria)
+                entity.Property(e => e.CodigoSubCategoria).HasColumnName("codigosubcategoria")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DescripcionSubCategoria).HasColumnType("text");
+                entity.Property(e => e.DescripcionSubCategoria).HasColumnType("text").HasColumnName("descripcionsubcategoria");
 
-                entity.Property(e => e.NombreSubCategoria)
+                entity.Property(e => e.NombreSubCategoria).HasColumnName("nombresubcategoria")
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
@@ -363,41 +379,44 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<SubUsuario>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdSubUsuario");
+                entity.Property(e => e.Id).HasColumnName("idsubusuario");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__SubUsuar__268A5A4499303A5F");
 
                 entity.ToTable("subusuario");
 
-                entity.Property(e => e.Apellido1)
+                entity.Property(e => e.Apellido1).HasColumnName("apellido1")
                     .HasMaxLength(80)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Apellido2)
+                entity.Property(e => e.Apellido2).HasColumnName("apellido2")
                     .HasMaxLength(80)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Celular)
+                entity.Property(e => e.Celular).HasColumnName("celular")
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Contraseña)
+                entity.Property(e => e.Contraseña).HasColumnName("contraseña")
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.Email).HasColumnName("email")
                     .IsRequired()
                     .HasMaxLength(80)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FechaIngreso).HasColumnType("date");
+                entity.Property(e => e.FechaIngreso).HasColumnType("date").HasColumnName("fechaingreso");
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Nombre).HasColumnName("nombre")
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.Property(e => e.EstatusSubUsuario).HasColumnName("estatussubusuario");
+
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.SubUsuarios)
@@ -410,13 +429,13 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__TipoCome__6D8B1B6EF81A8DB1");
 
-                entity.Property(e => e.Id).HasColumnName("IdTipoComercio");
+                entity.Property(e => e.Id).HasColumnName("idtipocomercio");
 
                 entity.ToTable("tipocomercio");
 
-                entity.Property(e => e.Descripcion).HasColumnType("text");
+                entity.Property(e => e.Descripcion).HasColumnType("text").HasColumnName("descripcion");
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Nombre).HasColumnName("nombre")
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
@@ -424,32 +443,38 @@ namespace APIColdonet.Entities
 
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdUsuario");
+                entity.Property(e => e.Id).HasColumnName("idusuario");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Usuario__5B65BF97130DF27C");
 
                 entity.ToTable("usuario");
 
-                entity.Property(e => e.Contraseña)
+                entity.Property(e => e.Contraseña).HasColumnName("contraseña")
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.Email).HasColumnName("email")
                     .HasMaxLength(80)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FechaIngreso).HasColumnType("date");
+                entity.Property(e => e.FechaIngreso).HasColumnType("date").HasColumnName("fechaingreso");
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Nombre).HasColumnName("nombre")
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Telefono)
+                entity.Property(e => e.Telefono).HasColumnName("telefono")
                     .HasMaxLength(15)
                     .IsUnicode(false);
+
+                entity.Property(e => e.EstatusUsuario).HasColumnName("estatususuario");
+                entity.Property(e => e.Delivery).HasColumnName("delivery");
+
+
+
 
                 entity.HasOne(d => d.IdDireccionNavigation)
                     .WithMany(p => p.Usuarios)
@@ -465,17 +490,20 @@ namespace APIColdonet.Entities
             modelBuilder.Entity<Ventum>(entity =>
             {
 
-                entity.Property(e => e.Id).HasColumnName("IdVenta");
+                entity.Property(e => e.Id).HasColumnName("idventa");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Venta__BC1240BDB483FFE9");
                 entity.ToTable("venta");
 
-                entity.Property(e => e.CostoVenta).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.CostoVenta).HasColumnType("decimal(10, 2)").HasColumnName("costoventa");
 
-                entity.Property(e => e.FechaVenta).HasColumnType("date");
+                entity.Property(e => e.FechaVenta).HasColumnType("date").HasColumnName("fechaventa");
 
-                entity.Property(e => e.TotalVenta).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.TotalVenta).HasColumnType("decimal(10, 2)").HasColumnName("totalventa");
+
+                entity.Property(e => e.EstatusVenta).HasColumnName("estatusventa");
+
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Venta)
