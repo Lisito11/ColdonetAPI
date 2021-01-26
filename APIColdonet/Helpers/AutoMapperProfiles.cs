@@ -18,6 +18,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using NetTopologySuite.Geometries;
 using System.Collections.Generic;
+using Npgsql;
+
 
 namespace APIColdonet.Helpers {
     public class AutoMapperProfiles : Profile {

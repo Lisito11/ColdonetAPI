@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Npgsql;
+using Npgsql.EntityFrameworkCore;
 #nullable disable
 
 namespace APIColdonet.Entities
@@ -91,7 +91,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Cliente__D59466429DAF6FDD");
 
-                entity.ToTable("Cliente");
+                entity.ToTable("cliente");
 
                 entity.Property(e => e.Abono).HasColumnType("decimal(10, 2)");
 
@@ -115,7 +115,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Compra__0A5CDB5C352E4AF5");
 
-                entity.ToTable("Compra");
+                entity.ToTable("compra");
 
                 entity.Property(e => e.FechaCompra).HasColumnType("date");
 
@@ -146,7 +146,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__DetalleC__E046CCBB74185F11");
 
-                entity.ToTable("DetalleCompra");
+                entity.ToTable("detallecompra");
 
                 entity.Property(e => e.CantidadProductoDc).HasColumnName("CantidadProductoDC");
 
@@ -171,6 +171,9 @@ namespace APIColdonet.Entities
             modelBuilder.Entity<DetalleVentum>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("IdDetalleVenta");
+
+                entity.ToTable("detalleventa");
+
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__DetalleV__AAA5CEC284321B5D");
@@ -215,7 +218,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__DeudaCli__51C9453FFDB3D8A8");
 
-                entity.ToTable("DeudaCliente");
+                entity.ToTable("deudacliente");
 
                 entity.Property(e => e.ClienteDebe).HasColumnType("decimal(10, 2)");
 
@@ -246,7 +249,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Direccio__1F8E0C761AC67455");
 
-                entity.ToTable("Direccion");
+                entity.ToTable("direccion");
 
                 entity.Property(e => e.Calle)
                     .HasMaxLength(80)
@@ -268,7 +271,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Producto__098892105010AF9D");
 
-                entity.ToTable("Producto");
+                entity.ToTable("producto");
 
                 entity.Property(e => e.CodigoProducto)
                     .HasMaxLength(10)
@@ -306,7 +309,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Proveedo__E8B631AF2197D2E2");
 
-                entity.ToTable("Proveedor");
+                entity.ToTable("proveedor");
 
                 entity.Property(e => e.NombreProveedor)
                     .IsRequired()
@@ -331,6 +334,7 @@ namespace APIColdonet.Entities
             modelBuilder.Entity<SubCategorium>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("IdSubCategoria");
+                entity.ToTable("subcategoria");
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__SubCateg__0A1EFFE50FCDCA62");
@@ -364,7 +368,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__SubUsuar__268A5A4499303A5F");
 
-                entity.ToTable("SubUsuario");
+                entity.ToTable("subusuario");
 
                 entity.Property(e => e.Apellido1)
                     .HasMaxLength(80)
@@ -408,7 +412,7 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.Id).HasColumnName("IdTipoComercio");
 
-                entity.ToTable("TipoComercio");
+                entity.ToTable("tipocomercio");
 
                 entity.Property(e => e.Descripcion).HasColumnType("text");
 
@@ -425,7 +429,7 @@ namespace APIColdonet.Entities
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Usuario__5B65BF97130DF27C");
 
-                entity.ToTable("Usuario");
+                entity.ToTable("usuario");
 
                 entity.Property(e => e.Contraseña)
                     .IsRequired()
@@ -465,6 +469,7 @@ namespace APIColdonet.Entities
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Venta__BC1240BDB483FFE9");
+                entity.ToTable("venta");
 
                 entity.Property(e => e.CostoVenta).HasColumnType("decimal(10, 2)");
 
