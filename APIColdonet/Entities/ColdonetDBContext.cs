@@ -38,7 +38,7 @@ namespace APIColdonet.Entities
         public virtual DbSet<Ventum> Venta { get; set; }
 
 
-       // public virtual DbSet<CompraProveedores> CompraProveedores { get; set; }
+        // public virtual DbSet<CompraProveedores> CompraProveedores { get; set; }
 
 
         /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
@@ -46,43 +46,49 @@ namespace APIColdonet.Entities
                  optionsBuilder.UseSqlServer("DefaultConnection", x => x.UseNetTopologySuite());
              }
          }*/
+
+        /* modelBuilder.Entity<IdentityUser>(entity => 
+ {
+     entity.HasKey(e => e.Id).HasName("PK_Usuario");
+ });
+ modelBuilder.Entity<IdentityUserLogin<int>>(entity => {
+     entity.HasKey(e => e.UserId).HasName("PK_UsuarioLogin");
+     entity.ToTable("AspNetUserLogins");
+ });*/
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
             modelBuilder.Entity<Categorium>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("IdCategoria");
+                entity.Property(e => e.Id).HasColumnName("idcategoria");
+
+                entity.ToTable("categoria");
+
 
                 entity.HasKey(e => e.Id)
                     .HasName("PK__Categori__A3C02A1045E3740B");
 
-                entity.Property(e => e.CodigoCategoria)
+                entity.Property(e => e.CodigoCategoria).HasColumnName("codigocategoria")
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DescripcionCategoria)
+                entity.Property(e => e.DescripcionCategoria).HasColumnName("descripcioncategoria")
                 .HasColumnType("text");
 
-                entity.Property(e => e.NombreCategoria)
+                entity.Property(e => e.NombreCategoria).HasColumnName("nombrecategoria")
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
+
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Categoria)
                     .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_categoria_usuario");
             });
-
-           /* modelBuilder.Entity<IdentityUser>(entity => 
-            {
-                entity.HasKey(e => e.Id).HasName("PK_Usuario");
-            });
-            modelBuilder.Entity<IdentityUserLogin<int>>(entity => {
-                entity.HasKey(e => e.UserId).HasName("PK_UsuarioLogin");
-                entity.ToTable("AspNetUserLogins");
-            });*/
 
             modelBuilder.Entity<Cliente>(entity =>
             {
@@ -103,11 +109,12 @@ namespace APIColdonet.Entities
                     .IsUnicode(false);
 
                 entity.Property(e => e.Estatus).HasColumnName("estatus");
-
+                
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Clientes)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_cliente_usuario");
             });
 
@@ -133,15 +140,19 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.EstatusCompra).HasColumnName("estatuscompra");
 
+                entity.Property(e => e.IdProveedor).HasColumnName("idproveedor");
+
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
 
                 entity.HasOne(d => d.IdProveedorNavigation)
                     .WithMany(p => p.Compras)
-                    .HasForeignKey(d => d.IdProveedor.ToString().ToLower())
+                    .HasForeignKey(d=> d.IdProveedor)
                     .HasConstraintName("fk_compra_proveedor");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Compras)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d=> d.IdUsuario)
                     .HasConstraintName("fk_compra_usuario");
             });
 
@@ -158,19 +169,25 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.CostoUnidad).HasColumnType("decimal(10, 2)").HasColumnName("costounidad");
 
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+                entity.Property(e => e.IdProducto).HasColumnName("idproducto");
+                entity.Property(e => e.IdCompra).HasColumnName("idcompra");
+
+
                 entity.HasOne(d => d.IdCompraNavigation)
                     .WithMany(p => p.DetalleCompras)
-                    .HasForeignKey(d => d.IdCompra.ToString().ToLower())
+                    .HasForeignKey(d=> d.IdCompra)
                     .HasConstraintName("fk_detallecompra_compra");
 
                 entity.HasOne(d => d.IdProductoNavigation)
                     .WithMany(p => p.DetalleCompras)
-                    .HasForeignKey(d => d.IdProducto.ToString().ToLower())
+                    .HasForeignKey(d => d.IdProducto)
                     .HasConstraintName("fk_detallecompra_producto");
+
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DetalleCompras)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_detallecompra_usuario");
             });
 
@@ -191,7 +208,19 @@ namespace APIColdonet.Entities
                     .HasColumnName("costoproductodv");
 
                 entity.Property(e => e.FechaDetalleVenta).HasColumnType("datetime").HasColumnName("fechadetalleventa");
+                
                 entity.Property(e => e.EstatusDetalleVenta).HasColumnName("estatusdetalleventa");
+                
+                entity.Property(e => e.IdProducto).HasColumnName("idproducto");
+                
+                entity.Property(e => e.IdCliente).HasColumnName("idcliente");
+                
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
+                entity.Property(e => e.IdVenta).HasColumnName("idventa");
+
+
+
 
                 entity.Property(e => e.PrecioProductoDv)
                     .HasColumnType("decimal(10, 2)")
@@ -199,22 +228,22 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdCliente.ToString().ToLower())
+                    .HasForeignKey(d=> d.IdCliente)
                     .HasConstraintName("fk_detalleventa_cliente");
 
                 entity.HasOne(d => d.IdProductoNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdProducto.ToString().ToLower())
+                    .HasForeignKey(d=> d.IdProducto)
                     .HasConstraintName("fk_detalleventa_producto");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d=>d.IdUsuario)
                     .HasConstraintName("fk_detalleventa_usuario");
 
                 entity.HasOne(d => d.IdVentaNavigation)
                     .WithMany(p => p.DetalleVenta)
-                    .HasForeignKey(d => d.IdVenta.ToString().ToLower())
+                    .HasForeignKey(d=>d.IdVenta)
                     .HasConstraintName("fk_detalleventa_venta");
             });
 
@@ -235,20 +264,24 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.EstatusDeudaCliente).HasColumnName("estatusdeudacliente");
 
+                entity.Property(e => e.IdCliente).HasColumnName("idcliente");
+                entity.Property(e => e.IdDetalleVenta).HasColumnName("iddetalleventa");
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
 
                 entity.HasOne(d => d.IdClienteNavigation)
                     .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdCliente.ToString().ToLower())
+                    .HasForeignKey(d=>d.IdCliente)
                     .HasConstraintName("fk_deudacliente_cliente");
 
                 entity.HasOne(d => d.IdDetalleVentaNavigation)
                     .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdDetalleVenta.ToString().ToLower())
+                    .HasForeignKey(d => d.IdDetalleVenta)
                     .HasConstraintName("fk_deudacliente_detalleventa");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_deudacliente_usuario");
             });
 
@@ -302,19 +335,27 @@ namespace APIColdonet.Entities
                 entity.Property(e => e.CantidadProducto).HasColumnName("cantidadproducto");
                 entity.Property(e => e.Pesado).HasColumnName("pesado");
 
+
+                entity.Property(e => e.IdCategoria).HasColumnName("idcategoria");
+                entity.Property(e => e.IdSubCategoria).HasColumnName("idsubcategoria");
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
+
+
+
                 entity.HasOne(d => d.IdCategoriaNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdCategoria.ToString().ToLower())
+                    .HasForeignKey(d => d.IdCategoria)
                     .HasConstraintName("fk_categoria_producto");
 
                 entity.HasOne(d => d.IdSubCategoriaNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdSubCategoria.ToString().ToLower())
+                    .HasForeignKey(d => d.IdSubCategoria)
                     .HasConstraintName("fk_subcategoria_producto");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Productos)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_producto_usuario");
             });
 
@@ -336,14 +377,18 @@ namespace APIColdonet.Entities
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
+                entity.Property(e => e.IdDireccion).HasColumnName("iddireccion");
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
+
                 entity.HasOne(d => d.IdDireccionNavigation)
                     .WithMany(p => p.Proveedors)
-                    .HasForeignKey(d => d.IdDireccion.ToString().ToLower())
+                    .HasForeignKey(d => d.IdDireccion)
                     .HasConstraintName("fk_proveedor_direccion");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Proveedors)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_proveedor_usuario");
             });
 
@@ -361,6 +406,9 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.DescripcionSubCategoria).HasColumnType("text").HasColumnName("descripcionsubcategoria");
 
+                entity.Property(e => e.IdCategoria).HasColumnName("idcategoria");
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
                 entity.Property(e => e.NombreSubCategoria).HasColumnName("nombresubcategoria")
                     .IsRequired()
                     .HasMaxLength(150)
@@ -368,12 +416,12 @@ namespace APIColdonet.Entities
 
                 entity.HasOne(d => d.IdCategoriaNavigation)
                     .WithMany(p => p.SubCategoria)
-                    .HasForeignKey(d => d.IdCategoria.ToString().ToLower())
+                    .HasForeignKey(d => d.IdCategoria)
                     .HasConstraintName("fk_subcategoria_categoria");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.SubCategoria)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_subcategoria_usuario");
             });
 
@@ -417,10 +465,12 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.EstatusSubUsuario).HasColumnName("estatussubusuario");
 
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
+
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.SubUsuarios)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_subusuario_usuario");
             });
 
@@ -472,18 +522,21 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.EstatusUsuario).HasColumnName("estatususuario");
                 entity.Property(e => e.Delivery).HasColumnName("delivery");
+               
+                entity.Property(e => e.IdDireccion).HasColumnName("iddireccion");
+                entity.Property(e => e.IdTipoComercio).HasColumnName("idtipocomercio");
 
 
 
 
                 entity.HasOne(d => d.IdDireccionNavigation)
                     .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.IdDireccion.ToString().ToLower())
+                    .HasForeignKey(d => d.IdDireccion)
                     .HasConstraintName("fk_usuario_direccion");
 
                 entity.HasOne(d => d.IdTipoComercioNavigation)
                     .WithMany(p => p.Usuarios)
-                    .HasForeignKey(d => d.IdTipoComercio.ToString().ToLower())
+                    .HasForeignKey(d => d.IdTipoComercio)
                     .HasConstraintName("fk_usuario_tipocomercio");
             });
 
@@ -503,11 +556,13 @@ namespace APIColdonet.Entities
                 entity.Property(e => e.TotalVenta).HasColumnType("decimal(10, 2)").HasColumnName("totalventa");
 
                 entity.Property(e => e.EstatusVenta).HasColumnName("estatusventa");
+                
+                entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
 
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Venta)
-                    .HasForeignKey(d => d.IdUsuario.ToString().ToLower())
+                    .HasForeignKey(d => d.IdUsuario)
                     .HasConstraintName("fk_venta_usuario");
             });
             SeedData(modelBuilder);

@@ -27,7 +27,12 @@ namespace APIColdonet {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
-            
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
@@ -44,8 +49,6 @@ namespace APIColdonet {
                 }).CreateMapper()
             );
 
-            // services.Configure<Env>(Configuration.GetSection("Env"));
-          //services.AddDbContext<ColdonetDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Dbconnection"), sqlServerOptions => sqlServerOptions.UseNetTopologySuite()));
             services.AddDbContext<ColdonetDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Dbconnection"), npgsqlOptions => npgsqlOptions.UseNetTopologySuite()));
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -71,6 +74,8 @@ namespace APIColdonet {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(opciones => opciones.AllowAnyOrigin());
 
             app.UseHttpsRedirection();
 
