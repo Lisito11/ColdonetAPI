@@ -30,7 +30,7 @@ namespace APIColdonet {
 
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
 
             services.AddAutoMapper(typeof(Startup));
@@ -75,7 +75,7 @@ namespace APIColdonet {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(opciones => opciones.AllowAnyOrigin());
+            app.UseCors(opciones => opciones.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseHttpsRedirection();
 
