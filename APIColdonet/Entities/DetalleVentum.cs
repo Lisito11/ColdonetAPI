@@ -9,7 +9,6 @@ namespace APIColdonet.Entities
     {
         public DetalleVentum()
         {
-            DeudaClientes = new HashSet<DeudaCliente>();
         }
 
         public int Id { get; set; }
@@ -27,6 +26,5 @@ namespace APIColdonet.Entities
         public virtual Producto IdProductoNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }
         public virtual Ventum IdVentaNavigation { get; set; }
-        public virtual ICollection<DeudaCliente> DeudaClientes { get; set; }
     }
 }

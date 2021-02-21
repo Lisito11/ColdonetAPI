@@ -262,10 +262,6 @@ namespace APIColdonet.Entities
 
                 entity.Property(e => e.ClienteDebe).HasColumnType("decimal(10, 2)").HasColumnName("clientedebe");
 
-                entity.Property(e => e.ProductoCliente).HasColumnName("productocliente")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.ListaDetalleVenta).HasColumnName("listadetalleventa")
                     .HasMaxLength(500)
                     .IsUnicode(false);
@@ -273,7 +269,6 @@ namespace APIColdonet.Entities
                 entity.Property(e => e.EstatusDeudaCliente).HasColumnName("estatusdeudacliente");
 
                 entity.Property(e => e.IdCliente).HasColumnName("idcliente");
-                entity.Property(e => e.IdDetalleVenta).HasColumnName("iddetalleventa");
 
                 entity.Property(e => e.IdUsuario).HasColumnName("idusuario");
 
@@ -283,11 +278,6 @@ namespace APIColdonet.Entities
                     .WithMany(p => p.DeudaClientes)
                     .HasForeignKey(d=>d.IdCliente)
                     .HasConstraintName("fk_deudacliente_cliente");
-
-                entity.HasOne(d => d.IdDetalleVentaNavigation)
-                    .WithMany(p => p.DeudaClientes)
-                    .HasForeignKey(d => d.IdDetalleVenta)
-                    .HasConstraintName("fk_deudacliente_detalleventa");
 
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.DeudaClientes)

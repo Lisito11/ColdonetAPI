@@ -11,14 +11,11 @@ namespace APIColdonet.Entities
         public decimal? ClienteDebe { get; set; }
         public int? EstatusDeudaCliente { get; set; }
         public int? IdCliente { get; set; }
-        public int? IdDetalleVenta { get; set; }
-        public string ProductoCliente { get; set; }
         public int? IdUsuario { get; set; }
         public DateTime? FechaDeuda { get; set; }
         public string ListaDetalleVenta { get; set; }
 
         public virtual Cliente IdClienteNavigation { get; set; }
-        public virtual DetalleVentum IdDetalleVentaNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }
     }
 }

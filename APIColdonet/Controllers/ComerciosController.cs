@@ -42,10 +42,11 @@ namespace APIColdonet.Controllers {
             if (string.Equals(param, "null")) {
                 var comercio = await comerciosQueryable
                 .Include(x => x.Categoria).ThenInclude(x => x.SubCategoria).ThenInclude(x => x.Productos)
-                .Include(x => x.Clientes).ThenInclude(x => x.DetalleVenta).ThenInclude(x => x.DeudaClientes.Where(x => x.EstatusDeudaCliente == 0))
+                .Include(x => x.Clientes).ThenInclude(x => x.DetalleVenta)
                 .Include(x => x.Compras).ThenInclude(x => x.DetalleCompras)
                 .Include(x => x.Productos)
-                .Include(x => x.Proveedors).ThenInclude(x => x.Compras)
+                .Include(x => x.DeudaClientes)
+                .Include(x => x.Proveedors).ThenInclude(x => x.DetalleCompras)
                 .Include(x => x.SubUsuarios)
                 .Include(x => x.Venta).ThenInclude(x => x.DetalleVenta)
                 .Include(x => x.IdDireccionNavigation)
@@ -69,7 +70,7 @@ namespace APIColdonet.Controllers {
             }
 
             if (string.Equals(param, "clientes")) {
-                var comercioClientes = await comerciosQueryable.Include(x => x.Clientes).ThenInclude(x => x.DetalleVenta).ThenInclude(x => x.DeudaClientes.
+                var comercioClientes = await comerciosQueryable.Include(x => x.Clientes).ThenInclude(x => x.DeudaClientes.
                 Where(x => x.EstatusDeudaCliente == 0)).FirstOrDefaultAsync(x => x.Id == id);
 
                 return mapper.Map<ComercioDetallesDTO>(comercioClientes);
@@ -90,7 +91,7 @@ namespace APIColdonet.Controllers {
 
             }
             if (string.Equals(param, "proveedores")) {
-                var comercioProveedores = await comerciosQueryable.Include(x => x.Proveedors).ThenInclude(x => x.Compras).FirstOrDefaultAsync(x => x.Id == id);
+                var comercioProveedores = await comerciosQueryable.Include(x => x.Proveedors).ThenInclude(x => x.DetalleCompras).FirstOrDefaultAsync(x => x.Id == id);
 
                 return mapper.Map<ComercioDetallesDTO>(comercioProveedores);
 
