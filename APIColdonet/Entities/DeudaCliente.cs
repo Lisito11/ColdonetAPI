@@ -14,6 +14,8 @@ namespace APIColdonet.Entities
         public int? IdDetalleVenta { get; set; }
         public string ProductoCliente { get; set; }
         public int? IdUsuario { get; set; }
+        public DateTime? FechaDeuda { get; set; }
+        public string ListaDetalleVenta { get; set; }
 
         public virtual Cliente IdClienteNavigation { get; set; }
         public virtual DetalleVentum IdDetalleVentaNavigation { get; set; }

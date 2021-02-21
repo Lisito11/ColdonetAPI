@@ -12,10 +12,6 @@ namespace APIColdonet.DTOs.Compras {
         public decimal? TotalCompra { get; set; }
         public int? EstatusCompra { get; set; }
         public decimal? PorPagar { get; set; }
-
-      //  [ModelBinder(BinderType = typeof(List<int>))]
-        //public List<int>? ProveedoresID { get; set; }
-        public int? IdProveedor { get; set; }
         public int? IdUsuario { get; set; }
     }
 }

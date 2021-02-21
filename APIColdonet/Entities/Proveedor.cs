@@ -9,7 +9,7 @@ namespace APIColdonet.Entities
     {
         public Proveedor()
         {
-            Compras = new HashSet<Compra>();
+            DetalleCompras = new HashSet<DetalleCompra>();
         }
 
         public int Id { get; set; }
@@ -17,10 +17,8 @@ namespace APIColdonet.Entities
         public string TelefonoProveedor { get; set; }
         public int? IdDireccion { get; set; }
         public int? IdUsuario { get; set; }
-     //   public List<CompraProveedores> CompraProveedores { get; set; }
-
         public virtual Direccion IdDireccionNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }
-        public virtual ICollection<Compra> Compras { get; set; }
+        public virtual ICollection<DetalleCompra> DetalleCompras { get; set; }
     }
 }

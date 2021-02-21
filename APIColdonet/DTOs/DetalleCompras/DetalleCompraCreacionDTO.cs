@@ -10,5 +10,7 @@ namespace APIColdonet.DTOs.DetalleCompras {
         public int? IdProducto { get; set; }
         public int? IdCompra { get; set; }
         public int? IdUsuario { get; set; }
+        public int? IdProveedor { get; set; }
+
     }
 }

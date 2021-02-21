@@ -14,5 +14,7 @@ namespace APIColdonet.DTOs.Comercios {
         public int? EstatusUsuario { get; set; }
         public int? IdTipoComercio { get; set; }
         public int? IdDireccion { get; set; }
+        public int? TipoPago { get; set; }
+
     }
 }

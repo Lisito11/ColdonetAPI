@@ -11,5 +11,9 @@ namespace APIColdonet.DTOs.DeudaCliente {
         public int? IdDetalleVenta { get; set; }
         public string ProductoCliente { get; set; }
         public int? IdUsuario { get; set; }
+        public DateTime? FechaDeuda { get; set; }
+        public string ListaDetalleVenta { get; set; }
+
+
     }
 }

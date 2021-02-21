@@ -31,6 +31,7 @@ namespace APIColdonet.Entities
         public int? EstatusUsuario { get; set; }
         public int? IdTipoComercio { get; set; }
         public int? IdDireccion { get; set; }
+        public int? TipoPago { get; set; }
 
         public virtual Direccion IdDireccionNavigation { get; set; }
         public virtual TipoComercio IdTipoComercioNavigation { get; set; }

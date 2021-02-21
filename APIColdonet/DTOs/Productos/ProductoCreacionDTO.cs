@@ -7,7 +7,8 @@ namespace APIColdonet.DTOs.Productos {
     public class ProductoCreacionDTO {
         public string CodigoProducto { get; set; }
         public string NombreProducto { get; set; }
-        public decimal? PrecioProdcuto { get; set; }
+        public decimal? PrecioProducto1 { get; set; }
+        public decimal? PrecioProducto2 { get; set; }
         public decimal? CostoProducto { get; set; }
         public int? CantidadProducto { get; set; }
         public int? EstatusProducto { get; set; }
