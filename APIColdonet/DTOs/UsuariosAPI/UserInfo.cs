@@ -10,6 +10,6 @@ namespace APIColdonet.DTOs.UsuariosAPI {
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-
+        public string Nombre { get; set; }
     }
 }
